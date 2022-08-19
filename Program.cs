@@ -3,56 +3,27 @@ using Microsoft.AspNetCore.Mvc;
 var builder = WebApplication.CreateBuilder(args);
 var app = builder.Build();
 
-app.MapGet("/", () => "Hello World 2 !");
-app.MapGet("/user", () => new {nome="Luando",idade=40});
-app.MapGet("/addheader",(HttpResponse response) => response.Headers.Add("Teste","Luando"));
-// app.MapPost("/saveproduct",(Product product) => {
-//     return product.Code + " - " + product.Name; 
-// });
 
-app.MapPost("/saveproduct",(Product product) => {
-
+app.MapPost("/products",(Product product) => {
       ProductRepository.Add(product);
-
  });
 
-//https://localhost:3001/getproducts?datestart=20220119&dateend=20220819
-//api.app.com/users?datastart={date}&dataend{date}
-app.MapGet("/getproduct",([FromQuery] string dateStart,[FromQuery] string dateEnd) => {
-    return dateStart + " - " + dateEnd;
-});
-
-
-//https://localhost:3001/getproduct/1
-//api.app.com/user/{code}
-// app.MapGet("/getproduct/{code}",([FromRoute] string code) => {
-//     return code ;
-// });
-
-app.MapGet("/getproduct/{code}",([FromRoute] string code) => {
+app.MapGet("/products/{code}",([FromRoute] string code) => {
     var product = ProductRepository.GetBy(code);
     return product;
 });
 
 
-
-app.MapGet("/getproductbyheader",(HttpRequest request) => {
-    return request.Headers["product-code"].ToString();
-});
-
-
-
-app.MapPut("/editproduct",(Product product) => {
+app.MapPut("/products",(Product product) => {
     var productSaved = ProductRepository.GetBy(product.Code);
 
     //atribui a referencia de memoria ao novo nome
     productSaved.Name = product.Name;
 });
 
-app.MapDelete("/deleteproduct/{code}",([FromRoute] string code) =>{
+app.MapDelete("/products/{code}",([FromRoute] string code) =>{
 
     var productDelete = ProductRepository.GetBy(code);
-
     ProductRepository.Remove(productDelete);
 });
 
@@ -91,3 +62,28 @@ public class Product{
     public string Name { get; set; }
 
 }
+
+
+
+// app.MapGet("/", () => "Hello World 2 !");
+// app.MapGet("/user", () => new {nome="Luando",idade=40});
+// app.MapGet("/addheader",(HttpResponse response) => response.Headers.Add("Teste","Luando"));
+// app.MapPost("/saveproduct",(Product product) => {
+//     return product.Code + " - " + product.Name; 
+// });
+//https://localhost:3001/getproducts?datestart=20220119&dateend=20220819
+//api.app.com/users?datastart={date}&dataend{date}
+// app.MapGet("/getproduct",([FromQuery] string dateStart,[FromQuery] string dateEnd) => {
+//     return dateStart + " - " + dateEnd;
+// });
+
+//https://localhost:3001/getproduct/1
+//api.app.com/user/{code}
+// app.MapGet("/getproduct/{code}",([FromRoute] string code) => {
+//     return code ;
+// });
+
+
+// app.MapGet("/getproductbyheader",(HttpRequest request) => {
+//     return request.Headers["product-code"].ToString();
+// });
