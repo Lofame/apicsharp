@@ -1,6 +1,9 @@
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddDbContext<ApplicationDbContext>();
 
 var app = builder.Build();
 
@@ -39,11 +42,13 @@ app.MapDelete("/products/{code}",([FromRoute] string code) =>{
 
     return Results.Ok();
 });
-
-
+                         
+if(app.Environment.IsStaging()){
 app.MapGet("/configuration/database",(IConfiguration configuration) =>{
    return Results.Ok(configuration["Database:Connection"]);
 });
+}
+
 
 app.Run();
 
@@ -78,10 +83,6 @@ public static class ProductRepository{
     }
 }
 
-
-
-
-
 public class Product{
 
     public string Code { get; set; }
@@ -89,6 +90,14 @@ public class Product{
 
 }
 
+public class ApplicationDbContext : DbContext{
+
+    public DbSet<Product> Products {get;set;}
+
+
+    protected override void OnConfiguring(DbContextOptionsBuilder options) => 
+    options.UseSqlServer("Server=localhost;Database=Products;Use Id=sa;Password=3data;MultipleActiveResultSets=true;Encrypt=YES;TrustServerCertificate=YES");
+}
 
 
 // app.MapGet("/", () => "Hello World 2 !");
