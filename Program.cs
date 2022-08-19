@@ -6,11 +6,17 @@ var app = builder.Build();
 
 app.MapPost("/products",(Product product) => {
       ProductRepository.Add(product);
+      return Results.Created($"/produtcs/{product.Code}",product);
  });
 
 app.MapGet("/products/{code}",([FromRoute] string code) => {
     var product = ProductRepository.GetBy(code);
-    return product;
+
+    if(product != null)
+    {
+        return Results.Ok(product);
+    }
+    return Results.NotFound(null);
 });
 
 
@@ -19,12 +25,16 @@ app.MapPut("/products",(Product product) => {
 
     //atribui a referencia de memoria ao novo nome
     productSaved.Name = product.Name;
+
+   return Results.Ok();
 });
 
 app.MapDelete("/products/{code}",([FromRoute] string code) =>{
 
     var productDelete = ProductRepository.GetBy(code);
     ProductRepository.Remove(productDelete);
+
+    return Results.Ok();
 });
 
 app.Run();
