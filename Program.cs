@@ -1,8 +1,11 @@
 using Microsoft.AspNetCore.Mvc;
 
 var builder = WebApplication.CreateBuilder(args);
+
 var app = builder.Build();
 
+var configuration = app.Configuration;
+ProductRepository.Init(configuration);
 
 app.MapPost("/products",(Product product) => {
       ProductRepository.Add(product);
@@ -37,6 +40,11 @@ app.MapDelete("/products/{code}",([FromRoute] string code) =>{
     return Results.Ok();
 });
 
+
+app.MapGet("/configuration/database",(IConfiguration configuration) =>{
+   return Results.Ok(configuration["Database:Connection"]);
+});
+
 app.Run();
 
 
@@ -44,8 +52,14 @@ app.Run();
 //Ao colocar ela estatica ela fica disponivel na memoria
 public static class ProductRepository{
 
-    public static List<Product> Products {get;set;}
+    public static List<Product> Products {get;set;} = new List<Product>();
 
+
+    public static void Init(IConfiguration configuration){
+        var products = configuration.GetSection("Products").Get<List<Product>>();
+        Products = products;
+    }
+    
     public static void Add(Product product){
         if(Products == null)
            Products = new List<Product>();
@@ -53,6 +67,8 @@ public static class ProductRepository{
         Products.Add(product);
     }
 
+
+    
     public static Product GetBy(string code){
     return Products.FirstOrDefault(p => p.Code == code);
 }
