@@ -1835,11 +1835,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\curso\\api\\api.csproj",
+      "projectUniqueName": "C:\\curso\\apicsharp\\api.csproj",
       "projectName": "api",
-      "projectPath": "C:\\curso\\api\\api.csproj",
+      "projectPath": "C:\\curso\\apicsharp\\api.csproj",
       "packagesPath": "C:\\Users\\lofam\\.nuget\\packages\\",
-      "outputPath": "C:\\curso\\api\\obj\\",
+      "outputPath": "C:\\curso\\apicsharp\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",

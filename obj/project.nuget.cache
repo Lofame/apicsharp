@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "iHaScs7VhGMM5H78j6hAtXK/FtQf44LeHy9lfu/mVh0MSp7jloL7oyIMZwHTvJbxP/ua9CGrtw0qdqsOMZReTQ==",
+  "dgSpecHash": "CraQAtVzWq5cHN+KYvMpQdoaBVA+1SgGoHRjdz04Jy9UFZ8rK+qQf0wbd4BJZtCH1acZcH2l15s/Ehzds1iIVw==",
   "success": true,
-  "projectFilePath": "C:\\curso\\api\\api.csproj",
+  "projectFilePath": "C:\\curso\\apicsharp\\api.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\lofam\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\microsoft.csharp\\4.5.0\\microsoft.csharp.4.5.0.nupkg.sha512",

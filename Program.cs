@@ -85,6 +85,7 @@ public static class ProductRepository{
 
 public class Product{
 
+    public string Id {get;set;}
     public string Code { get; set; }
     public string Name { get; set; }
 
@@ -96,10 +97,10 @@ public class ApplicationDbContext : DbContext{
 
 
     protected override void OnConfiguring(DbContextOptionsBuilder options) => 
-    options.UseSqlServer("Server=localhost;Database=Products;Use Id=sa;Password=3data;MultipleActiveResultSets=true;Encrypt=YES;TrustServerCertificate=YES");
+    options.UseSqlServer("Server=localhost;Database=Products;User Id=sa;Password=3data;MultipleActiveResultSets=true;Encrypt=YES;TrustServerCertificate=YES");
 }
 
-
+//"Server=localhost;Database=Products;Use Id=sa;Password=3data;MultipleActiveResultSets=true;Encrypt=YES;TrustServerCertificate=YES"
 // app.MapGet("/", () => "Hello World 2 !");
 // app.MapGet("/user", () => new {nome="Luando",idade=40});
 // app.MapGet("/addheader",(HttpResponse response) => response.Headers.Add("Teste","Luando"));
