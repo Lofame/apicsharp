@@ -4,7 +4,7 @@
 
 namespace api.Migrations
 {
-    public partial class CreateCategory : Migration
+    public partial class alterproductNameTagToTags : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

@@ -9,5 +9,5 @@ public record ProductRequest(
     string Name,
     string Description, 
     int CategoryId,
-    List<string> Tag
+    List<string> Tags
     );

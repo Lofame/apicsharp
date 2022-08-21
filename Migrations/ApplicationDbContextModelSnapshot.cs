@@ -39,8 +39,11 @@ namespace api.Migrations
 
             modelBuilder.Entity("Product", b =>
                 {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<int>("CategoryId")
                         .HasColumnType("int");
@@ -81,12 +84,9 @@ namespace api.Migrations
                     b.Property<int>("ProductId")
                         .HasColumnType("int");
 
-                    b.Property<string>("ProductId1")
-                        .HasColumnType("nvarchar(450)");
-
                     b.HasKey("Id");
 
-                    b.HasIndex("ProductId1");
+                    b.HasIndex("ProductId");
 
                     b.ToTable("Tag");
                 });
@@ -105,13 +105,15 @@ namespace api.Migrations
             modelBuilder.Entity("Tag", b =>
                 {
                     b.HasOne("Product", null)
-                        .WithMany("Tag")
-                        .HasForeignKey("ProductId1");
+                        .WithMany("Tags")
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Product", b =>
                 {
-                    b.Navigation("Tag");
+                    b.Navigation("Tags");
                 });
 #pragma warning restore 612, 618
         }
